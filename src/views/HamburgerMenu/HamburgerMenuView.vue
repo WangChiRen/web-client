@@ -149,10 +149,10 @@
                                        icon="el-icon-shopping-cart-2" @click="shoppingCart(0)">加入訂單</el-button>
 
                               <span class="s3">Quantity
-                          <el-button id="ad1" icon="el-icon-plus" circle size="mini" @click="QuantityAdd(0)"
+                          <el-button id="ad1" icon="el-icon-plus" circle size="mini" @click="quantityAdd(0)"
                                      style="margin-top: 24px"></el-button>
                               <el-button id="reduce1" icon="el-icon-minus" circle size="mini"
-                                         @click="QuantityReduce(0)"></el-button>
+                                         @click="quantityReduce(0)"></el-button>
                               <input type="text" id="in0" prop="int0" minlength="1" maxlength="2"
                                      v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
                                        <el-rate class="el-rate" v-model="score[0]" disabled show-score
@@ -173,9 +173,9 @@
                                    icon="el-icon-shopping-cart-2" @click="shoppingCart(1)">加入訂單</el-button>
                                        <span class="s3">Quantity
                      <el-button id="ad2" icon="el-icon-plus" circle size="mini"
-                                @click="QuantityAdd(1)" style="margin-top: 24px"></el-button>
+                                @click="quantityAdd(1)" style="margin-top: 24px"></el-button>
                        <el-button id="reduce2" icon="el-icon-minus" circle size="mini"
-                                  @click="QuantityReduce(1)"></el-button>
+                                  @click="quantityReduce(1)"></el-button>
                          <input type="text" id="in1" prop="int1" minlength="1" maxlength="2"
                                 v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
                           <el-rate class="el-rate" v-model="score[1]" disabled show-score
@@ -195,9 +195,9 @@
                             </el-button>
                                     <span class="s3">Quantity
                                      <el-button id="ad3" icon="el-icon-plus" circle size="mini"
-                                                @click="QuantityAdd(2)" style="margin-top: 24px"></el-button>
+                                                @click="quantityAdd(2)" style="margin-top: 24px"></el-button>
                                   <el-button id="reduce3" icon="el-icon-minus" circle size="mini"
-                                             @click="QuantityReduce(2)"></el-button>
+                                             @click="quantityReduce(2)"></el-button>
                                          <input type="text" id="in2" prop="int2" minlength="1" maxlength="2"
                                                 v-model="quantity"
                                                 autocomplete="off" style="margin-left: 16px;width: 26px;">
@@ -218,9 +218,9 @@
                        </el-button>
                             <span class="s3">Quantity
                                 <el-button id="ad4" icon="el-icon-plus" circle size="mini"
-                                           @click="QuantityAdd(3)" style="margin-top: 24px"></el-button>
+                                           @click="quantityAdd(3)" style="margin-top: 24px"></el-button>
                                   <el-button id="reduce4" icon="el-icon-minus" circle size="mini"
-                                             @click="QuantityReduce(3)"></el-button>
+                                             @click="quantityReduce(3)"></el-button>
                                        <input type="text" id="in3" prop="int3" minlength="1" maxlength="2"
                                               v-model="quantity" autocomplete="off"
                                               style="margin-left: 16px;width: 26px;">
@@ -247,9 +247,9 @@
                     </el-button>
                               <span class="s3">Quantity
                         <el-button id="ad5" icon="el-icon-plus" circle size="mini"
-                                   @click="QuantityAdd(4)" style="margin-top: 24px"></el-button>
+                                   @click="quantityAdd(4)" style="margin-top: 24px"></el-button>
                           <el-button id="reduce5" icon="el-icon-minus" circle size="mini"
-                                     @click="QuantityReduce(4)"></el-button>
+                                     @click="quantityReduce(4)"></el-button>
                        <input type="text" id="in4" prop="int4" minlength="1" maxlength="2"
                               v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
                                        <el-rate class="el-rate" v-model="score[4]" disabled show-score
@@ -267,9 +267,9 @@
                                            icon="el-icon-shopping-cart-2" @click="shoppingCart(5)">加入訂單</el-button>
                                <span class="s3">Quantity
                                    <el-button id="ad6" icon="el-icon-plus" circle size="mini"
-                                              @click="QuantityAdd(5)" style="margin-top: 24px"></el-button>
+                                              @click="quantityAdd(5)" style="margin-top: 24px"></el-button>
                                <el-button id="reduce6" icon="el-icon-minus" circle size="mini"
-                                          @click="QuantityReduce(5)"></el-button>
+                                          @click="quantityReduce(5)"></el-button>
                                  <input type="text" id="in5" prop="int5" minlength="1" maxlength="2"
                                         v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
                                <el-rate class="el-rate" v-model="score[5]" disabled show-score
@@ -288,9 +288,9 @@
                         </el-button>
                             <span class="s3">Quantity
                             <el-button id="ad7" icon="el-icon-plus" circle size="mini"
-                                       @click="QuantityAdd(6)" style="margin-top: 24px"></el-button>
+                                       @click="quantityAdd(6)" style="margin-top: 24px"></el-button>
                              <el-button id="reduce7" icon="el-icon-minus" circle size="mini"
-                                        @click="QuantityReduce(6)"></el-button>
+                                        @click="quantityReduce(6)"></el-button>
                                 <input type="text" id="in6" prop="int6" minlength="1" maxlength="2" v-model="quantity"
                                        autocomplete="off" style="margin-left: 16px;width: 26px;">
                                 <el-rate class="el-rate" v-model="score[6]" disabled show-score
@@ -309,9 +309,9 @@
                              </el-button>
                             <span class="s3">Quantity
                             <el-button id="ad8" icon="el-icon-plus" circle size="mini"
-                                       @click="QuantityAdd(7)" style="margin-top: 24px"></el-button>
+                                       @click="quantityAdd(7)" style="margin-top: 24px"></el-button>
                              <el-button id="reduce8" icon="el-icon-minus" circle size="mini"
-                                        @click="QuantityReduce(7)"></el-button>
+                                        @click="quantityReduce(7)"></el-button>
                                 <input type="text" id="in7" prop="int7" minlength="1" maxlength="2" v-model="quantity"
                                        autocomplete="off" style="margin-left: 16px;width: 26px;">
                              <el-rate class="el-rate" v-model="score[7]" disabled show-score
@@ -330,7 +330,7 @@
                 </h2>
                 <!--提交意見表單-->
                 <el-button id="d2" type="danger" icon="el-icon-chat-dot-round"
-                           circle @click="Opinion"></el-button>
+                           circle @click="opinion"></el-button>
 
                 <router-view/>
 
@@ -383,15 +383,15 @@
         },
         methods: {
 
-            //商品數量加
-            QuantityAdd(x) {
+            //商品數量增加
+            quantityAdd(x) {
                 let inx = document.querySelector("#in" + x);
                 inx.value++;
                 console.log("添加商品" + x + "數量為：", inx.value);
             },
 
-            //商品數量減
-            QuantityReduce(x) {
+            //商品數量減少
+            quantityReduce(x) {
                 let inx = document.querySelector("#in" + x);
 
                 if (inx.value != null && inx.value > 0) {
@@ -451,8 +451,8 @@
                 this.$router.push('/hamburger/menu/shopping-car');
             },
 
-            //意見表(發請求給後端)
-            Opinion() {
+            //意見表
+            opinion() {
                 this.$prompt('', '提交意見', {
                     confirmButtonText: '發送',
                     cancelButtonText: '取消',
