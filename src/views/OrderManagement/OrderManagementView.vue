@@ -169,15 +169,6 @@
                 return index + this.serialCounter;
             },
 
-            // getTotalAmount() {
-            //     let totalAmount = 0;
-            //     for (let i = 0; i < this.gridData.length; i++) {
-            //         const order = this.gridData[i];
-            //         totalAmount += order.total;
-            //     }
-            //     return totalAmount;
-            // },
-
             //從數據庫獲得數據並顯示
             loadOrderManagement: function () {
                 let url = "http://localhost:9083/hamburgers/list-order";
