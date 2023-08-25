@@ -13,8 +13,6 @@
 
             <template slot-scope="scope">
 
-                <el-table-column type="selection" width="55"></el-table-column>
-
                 <el-table-column prop="id" label="編號" width="180" show-overflow-tooltip>
                     <template slot-scope="scope">{{serialNumber(scope.$index)}}</template>
                     
@@ -79,8 +77,9 @@
             }
         },
         computed: {
+            // 從本地存儲中獲取 ordernumber，如果沒有則默認為 0
             ordernumber() {
-                // 從本地存儲中獲取 ordernumber，如果沒有則默認為 0
+
                 return parseInt(localStorage.getItem('ordernumber')) || 0;
             }
         },
@@ -132,24 +131,29 @@
                     } else {
                         this.$message.error(response.data.message);
                     }
-                    // // 重新加載訂單列表
-                    // this.loadShoppingCar();
+
                 })
             },
 
-
-            //計算當前數量總金額
+            //計算表格的列匯總信息
             getSummaries(param) {
+                // columns 表示表格的列信息，data 表示表格的數據
                 const {columns, data} = param;
                 const sums = [];
+                // 遍歷每一列
                 columns.forEach((column, index) => {
-                    if (index === 2 || index === 1 || index === 0 || index === 6) {
+                    // 對於某些特定的列，不需要進行匯總
+                    if (index === 0 || index === 1 ||  index === 5) {
                         sums[index] = '';
                         return;
-                    } else if (index === 3) {
+
+                        // 為第三列設置標題
+                    } else if (index === 2) {
                         sums[index] = '總數/價格';
                         return;
                     }
+
+                    // 計算當前列的數值總和
                     const values = data.map(item => Number(item[column.property]));
                     if (!values.every(value => isNaN(value))) {
                         sums[index] = values.reduce((prev, curr) => {
@@ -160,22 +164,30 @@
                                 return prev;
                             }
                         }, 0);
+                        // 將第五列的總和轉化為元單位
                         sums[5] = sums[5] + ' 元';
                     }
                 });
-                return sums;
+                return sums; // 返回計算得到的匯總數據
             },
 
 
-            //發異步請求呈現數據
+            //發請求呈現數據
             loadShoppingCar: function () {
+                // 請求的路徑
                 let url = "http://localhost:9083/hamburgers";
+                // 用get請求查詢數據並呈現
                 this.axios.get(url).then((response) => {
+                    //response代表服務器響應對象
+                    //response.data代表服務器響應的數據
                     let json = response.data;
+                    //json.code == 20000代表請求成功
                     if (json.code == 20000) {
+                        //將數據添加到 tableData 中
                         this.tableData = json.data;
 
                     } else {
+                        //如果失敗返回失敗訊息
                         this.$message.error(json.message);
                     }
                 })
@@ -202,6 +214,9 @@
                 console.log("將根據id=" + id + "刪除訂單...");
                 let url = "http://localhost:9083/hamburgers/" + id + "/delete";
                 this.axios.post(url).then((response) => {
+                    //response代表服務器響應對象
+                    //response.data代表服務器響應的數據
+                    //response.data.code == 20000代表請求成功
                     if (response.data.code == 20000) {
                         this.$message({
                             message: '刪除訂單成功',
@@ -216,14 +231,14 @@
             },
 
 
-            //確認是否點餐(發請求給後端)
+            //確認是否點餐
             orderAndCheckout() {
                 this.$confirm("確定要送出訂單", "提示", {
                     confirmButtonText: "確認",
                     cancelButtonText: "取消",
                     type: "warning",
                 })
-                    //發請求給後端
+
                     .then(() => {
                         //將訂單送出給後台系統
                         //修改OrderNumber數據
@@ -238,16 +253,22 @@
                     });
             },
 
-
+            // 遞增 ordernumber 的值
             setOrderNumber() {
                 // 遞增 ordernumber 的值
                 const newOrderNumber = this.ordernumber + 1;
                 localStorage.setItem('ordernumber', newOrderNumber.toString());
 
+
                 console.log("ordernumber:..." + newOrderNumber);
 
+                // 構建後端請求的 URL
                 let url = "http://localhost:9083/hamburgers/update-order";
-                const requestData = { ordernumber: newOrderNumber }; // 將數據封裝為對象
+
+                // 將數據封裝為json對象
+                const requestData = { ordernumber: newOrderNumber };
+
+                // 發送 POST 請求給後端
                 this.axios.post(url, requestData).then((response) => {
                     console.log("response是: " + response);
                     if (response.data.code == 20000) {
@@ -322,7 +343,7 @@
         },
 
         created() {
-            //
+
         },
 
         mounted() {

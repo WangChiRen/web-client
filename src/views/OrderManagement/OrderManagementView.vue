@@ -177,14 +177,14 @@
                     if (json.code == 20000) {
                         this.tableData = json.data;
                         this.gridData = json.data;
-                        this.processData(); // 處理數據
+                        this.processData(); // 處理數據，合併相同訂單號的訂單並計算總金額
                     } else {
                         this.$message.error(json.message);
                     }
                 });
             },
 
-            //儲相同訂單號的訂單數據
+            // 用於合併相同訂單號的訂單數據，計算其總金額並重新賦值給 tableData
             processData() {
                 const orderMap = {}; // 用於存儲相同訂單號的訂單數據
                 this.tableData.forEach(order => {

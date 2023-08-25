@@ -4,23 +4,6 @@
 
     }
 
-    /*#con {*/
-    /*    position: relative;*/
-    /*}*/
-
-    /*.layout-header {*/
-    /*    position: relative;*/
-    /*    text-align: center;*/
-    /*    font-size: 20px;*/
-    /*    top: 0;*/
-    /*    bottom: 95%;*/
-    /*    left: 0;*/
-    /*    right: 0;*/
-    /*    width: 100%;*/
-
-
-    /*}*/
-
     .layout-body {
 
         background-color: #162D3D;
@@ -30,20 +13,6 @@
         width: 100%;
         overflow-x: hidden;
     }
-
-    /*.layout-footer {*/
-
-    /*    text-align: center;*/
-    /*    background-color: white;*/
-
-
-    /*    font-size: 12px;*/
-    /*    line-height: 18px;*/
-
-    /*    margin-top: 20px;*/
-
-
-    /*}*/
 
     .hr {
         color: white;
@@ -119,6 +88,10 @@
         margin-top: 16px;
     }
 
+    .inx {
+        margin-top: 20px;
+    }
+
 
 </style>
 
@@ -148,13 +121,12 @@
                                        name="shoppingCart"
                                        icon="el-icon-shopping-cart-2" @click="shoppingCart(0)">加入訂單</el-button>
 
-                              <span class="s3">Quantity
-                          <el-button id="ad1" icon="el-icon-plus" circle size="mini" @click="quantityAdd(0)"
-                                     style="margin-top: 24px"></el-button>
-                              <el-button id="reduce1" icon="el-icon-minus" circle size="mini"
-                                         @click="quantityReduce(0)"></el-button>
-                              <input type="text" id="in0" prop="int0" minlength="1" maxlength="2"
-                                     v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
+                              <span class="s3">QYT
+
+                                   <template>
+                                       <el-input-number class="inx" ref="inputNumberRef0" size="small" v-model="num[0]"
+                                                        @change="handleChange()" :min="0" :max="99"></el-input-number>
+                                   </template>
                                        <el-rate class="el-rate" v-model="score[0]" disabled show-score
                                                 text-color="#ff9900" score-template="{value}"></el-rate>
                               </span>
@@ -171,13 +143,12 @@
                     <p>
                         <el-button id="shop2" style="border-radius: 30px;margin-top: 32px" type="primary"
                                    icon="el-icon-shopping-cart-2" @click="shoppingCart(1)">加入訂單</el-button>
-                                       <span class="s3">Quantity
-                     <el-button id="ad2" icon="el-icon-plus" circle size="mini"
-                                @click="quantityAdd(1)" style="margin-top: 24px"></el-button>
-                       <el-button id="reduce2" icon="el-icon-minus" circle size="mini"
-                                  @click="quantityReduce(1)"></el-button>
-                         <input type="text" id="in1" prop="int1" minlength="1" maxlength="2"
-                                v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
+                                       <span class="s3">QYT
+                                            <template>
+                                                <el-input-number class="inx" ref="inputNumberRef1" size="small"
+                                                                 v-model="num[1]" @change="handleChange()" :min="0"
+                                                                 :max="99"></el-input-number>
+                                            </template>
                           <el-rate class="el-rate" v-model="score[1]" disabled show-score
                                    text-color="#ff9900" score-template="{value}"></el-rate>
                         </span>
@@ -193,14 +164,13 @@
                             <el-button id="shop3" style="border-radius: 30px;margin-top: 32px" type="primary"
                                        icon="el-icon-shopping-cart-2" @click="shoppingCart(2)">加入訂單
                             </el-button>
-                                    <span class="s3">Quantity
-                                     <el-button id="ad3" icon="el-icon-plus" circle size="mini"
-                                                @click="quantityAdd(2)" style="margin-top: 24px"></el-button>
-                                  <el-button id="reduce3" icon="el-icon-minus" circle size="mini"
-                                             @click="quantityReduce(2)"></el-button>
-                                         <input type="text" id="in2" prop="int2" minlength="1" maxlength="2"
-                                                v-model="quantity"
-                                                autocomplete="off" style="margin-left: 16px;width: 26px;">
+                                    <span class="s3">QYT
+
+                                         <template>
+                                             <el-input-number class="inx" ref="inputNumberRef2" size="small"
+                                                              v-model="num[2]" @change="handleChange()" :min="0"
+                                                              :max="99"></el-input-number>
+                                         </template>
                                        <el-rate class="el-rate" v-model="score[2]" disabled show-score
                                                 text-color="#ff9900" score-template="{value}"></el-rate>
                                     </span>
@@ -216,14 +186,11 @@
                        <el-button id="shop4" style="border-radius: 30px;margin-top: 32px" type="primary"
                                   icon="el-icon-shopping-cart-2" @click="shoppingCart(3)">加入訂單
                        </el-button>
-                            <span class="s3">Quantity
-                                <el-button id="ad4" icon="el-icon-plus" circle size="mini"
-                                           @click="quantityAdd(3)" style="margin-top: 24px"></el-button>
-                                  <el-button id="reduce4" icon="el-icon-minus" circle size="mini"
-                                             @click="quantityReduce(3)"></el-button>
-                                       <input type="text" id="in3" prop="int3" minlength="1" maxlength="2"
-                                              v-model="quantity" autocomplete="off"
-                                              style="margin-left: 16px;width: 26px;">
+                            <span class="s3">QYT
+                                 <template>
+                                        <el-input-number class="inx" ref="inputNumberRef3" size="small" v-model="num[3]"
+                                                         @change="handleChange()" :min="0" :max="99"></el-input-number>
+                                 </template>
                                 <el-rate class="el-rate" v-model="score[3]" disabled show-score
                                          text-color="#ff9900" score-template="{value}"></el-rate>
                                     </span>
@@ -245,13 +212,13 @@
                     <el-button id="shop5" style="border-radius: 30px;margin-top: 32px" type="primary"
                                icon="el-icon-shopping-cart-2" @click="shoppingCart(4)">加入訂單
                     </el-button>
-                              <span class="s3">Quantity
-                        <el-button id="ad5" icon="el-icon-plus" circle size="mini"
-                                   @click="quantityAdd(4)" style="margin-top: 24px"></el-button>
-                          <el-button id="reduce5" icon="el-icon-minus" circle size="mini"
-                                     @click="quantityReduce(4)"></el-button>
-                       <input type="text" id="in4" prop="int4" minlength="1" maxlength="2"
-                              v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
+                              <span class="s3">QYT
+
+
+                                   <template>
+                                      <el-input-number class="inx" ref="inputNumberRef4" size="small" v-model="num[4]"
+                                                       @change="handleChange()" :min="0" :max="99"></el-input-number>
+                                   </template>
                                        <el-rate class="el-rate" v-model="score[4]" disabled show-score
                                                 text-color="#ff9900" score-template="{value}"></el-rate>
                               </span>
@@ -265,13 +232,11 @@
                             <p>
                                 <el-button id="shop6" style="border-radius: 30px;margin-top: 32px" type="primary"
                                            icon="el-icon-shopping-cart-2" @click="shoppingCart(5)">加入訂單</el-button>
-                               <span class="s3">Quantity
-                                   <el-button id="ad6" icon="el-icon-plus" circle size="mini"
-                                              @click="quantityAdd(5)" style="margin-top: 24px"></el-button>
-                               <el-button id="reduce6" icon="el-icon-minus" circle size="mini"
-                                          @click="quantityReduce(5)"></el-button>
-                                 <input type="text" id="in5" prop="int5" minlength="1" maxlength="2"
-                                        v-model="quantity" autocomplete="off" style="margin-left: 16px;width: 26px;">
+                               <span class="s3">QYT
+                                    <template>
+                                      <el-input-number class="inx" ref="inputNumberRef5" size="small" v-model="num[5]"
+                                                       @change="handleChange()" :min="0" :max="99"></el-input-number>
+                                    </template>
                                <el-rate class="el-rate" v-model="score[5]" disabled show-score
                                         text-color="#ff9900" score-template="{value}"></el-rate>
                                </span>
@@ -286,13 +251,12 @@
                         <el-button id="shop7" style="border-radius: 30px;margin-top: 32px" type="primary"
                                    icon="el-icon-shopping-cart-2" @click="shoppingCart(6)">加入訂單
                         </el-button>
-                            <span class="s3">Quantity
-                            <el-button id="ad7" icon="el-icon-plus" circle size="mini"
-                                       @click="quantityAdd(6)" style="margin-top: 24px"></el-button>
-                             <el-button id="reduce7" icon="el-icon-minus" circle size="mini"
-                                        @click="quantityReduce(6)"></el-button>
-                                <input type="text" id="in6" prop="int6" minlength="1" maxlength="2" v-model="quantity"
-                                       autocomplete="off" style="margin-left: 16px;width: 26px;">
+                            <span class="s3">QYT
+                       <template>
+                            <el-input-number class="inx" ref="inputNumberRef6" size="small" v-model="num[6]"
+                                             @change="handleChange()" :min="0" :max="99"></el-input-number>
+                               </template>
+
                                 <el-rate class="el-rate" v-model="score[6]" disabled show-score
                                          text-color="#ff9900" score-template="{value}"></el-rate>
                             </span>
@@ -307,15 +271,18 @@
                              <el-button id="shop8" style="border-radius: 30px;margin-top: 32px" type="primary"
                                         icon="el-icon-shopping-cart-2" @click="shoppingCart(7)">加入訂單
                              </el-button>
-                            <span class="s3">Quantity
-                            <el-button id="ad8" icon="el-icon-plus" circle size="mini"
-                                       @click="quantityAdd(7)" style="margin-top: 24px"></el-button>
-                             <el-button id="reduce8" icon="el-icon-minus" circle size="mini"
-                                        @click="quantityReduce(7)"></el-button>
-                                <input type="text" id="in7" prop="int7" minlength="1" maxlength="2" v-model="quantity"
-                                       autocomplete="off" style="margin-left: 16px;width: 26px;">
-                             <el-rate class="el-rate" v-model="score[7]" disabled show-score
-                                      text-color="#ff9900" score-template="{value}"></el-rate>
+                            <span class="s3">QYT
+                                <template>
+                                    <el-input-number class="inx" ref="inputNumberRef7" size="small" v-model="num[7]"
+                                                     @change="handleChange()" :min="0" :max="99"></el-input-number>
+
+                                         <el-rate class="el-rate" v-model="score[7]" disabled show-score
+                                                  text-color="#ff9900" score-template="{value}"></el-rate>
+
+                                        </template>
+
+
+
                             </span>
                         </p>
                         </span>
@@ -323,7 +290,7 @@
                     <!--查看詳情表單-->
                     <el-button id="shoppingCar" style="border-radius: 30px; margin-left: 700px;margin-top: 60px"
                                type="danger"
-                               icon="el-icon-shopping-cart-full" @click="checkshoppingCar()">查看訂單詳情
+                               icon="el-icon-shopping-cart-full" @click="checkShoppingCar()">查看訂單詳情
                     </el-button>
 
 
@@ -340,10 +307,7 @@
                 <p>CONTACT Cliff ©版權所有</p>
                 <p>服務專線 0930-099-850 免費體驗</p>
                 <p>週一至週五 09:30-12:30 / 13:30-18:00</p>
-                <p>非服務時段請填<a href="https://element.eleme.cn/#/zh-CN/component/container">
-                    表單留言
-                </a>
-                </p>
+                <p>非服務時段請填表單留言</p>
 
             </el-footer>
 
@@ -361,13 +325,19 @@
             let date = new Date();
             let time = new Date();
             return {
-                schedule: time.toLocaleTimeString() ,
+                //初始化 el-input-number的值
+                num: [0, 0, 0, 0, 0, 0, 0, 0],
+                //當前時間
+                schedule: time.toLocaleTimeString(),
+                //當前日期
                 today: date.getFullYear() + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + String(date.getDate()).padStart(2, '0'),
+                //商品總價
                 total: '',
-                quantity: 0,
-                message: '',
+                //星級評分
                 score: [4.5, 4.8, 4.7, 4.1, 4.3, 3.8, 3.5, 4.2],
+                //商品單價
                 unitPrice: [300, 300, 280, 250, 100, 120, 120, 120],
+                //圖片數據
                 commodity: ["https://static.wixstatic.com/media/587218504902455a9f4d574097a2e078.png/v1/fill/w_280,h_157,usm_1.20_1.00_0.01/file.webp",
                     "https://static.wixstatic.com/media/84770f_0b15783879f9488cafd401a2306cbad8~mv2_d_3181_2416_s_4_2.jpg/v1/fill/w_280,h_157,usm_1.20_1.00_0.01/file.webp",
                     "https://static.wixstatic.com/media/84770f_32e9f0da623c415da14f6d91d0d5e6cb~mv2_d_3192_2915_s_4_2.jpg/v1/fill/w_280,h_157,usm_1.20_1.00_0.01/file.webp",
@@ -383,31 +353,18 @@
         },
         methods: {
 
-            //商品數量增加
-            quantityAdd(x) {
-                let inx = document.querySelector("#in" + x);
-                inx.value++;
-                console.log("添加商品" + x + "數量為：", inx.value);
-            },
-
-            //商品數量減少
-            quantityReduce(x) {
-                let inx = document.querySelector("#in" + x);
-
-                if (inx.value != null && inx.value > 0) {
-                    inx.value--;
-                    console.log("減少商品" + x + "數量為：", inx.value);
-
-                }
+            handleChange(value) {
+                console.log(value);
             },
 
             //加入訂單(發請求給後端)
             shoppingCart(x) {
+                //獲取當前el-input-number中的值
+                let inputValue = this.$refs['inputNumberRef' + x].value;
+                console.log("in" + x + ":" + inputValue);
 
-                let inx = document.querySelector("#in" + x);
                 let url = "http://localhost:9083/hamburgers/add-new";
-
-                if ((inx.value <= 0) || (inx.value >= 100) || isNaN(inx.value)) {
+                if ((inputValue <= 0) || (inputValue >= 100) || isNaN(inputValue)) {
                     this.$message({
                         message: '添加商品失敗，請檢查商品數量',
                         type: 'error'
@@ -417,37 +374,39 @@
                     let allData = {
                         commodity: this.commodity[x],
                         unitprice: this.unitPrice[x],
-                        quantity: inx.value,
-                        total: (this.unitPrice[x]) * (inx.value),
+                        quantity: inputValue,
+                        total: (this.unitPrice[x]) * (inputValue),
                         schedule: this.schedule,
                         today: this.today
 
                     }
-                    console.log("schedule:"+ this.schedule);
-                    console.log("today:"+ this.today);
+                    console.log("schedule:" + this.schedule);
+                    console.log("today:" + this.today);
                     console.log("allData的數據是:" + allData)
-                    console.log("商品" + x + "的總金額是:" + (this.unitPrice[x]) * (inx.value));
+                    console.log("商品" + x + "的總金額是:" + (this.unitPrice[x]) * (inputValue));
 
 
                     //將數據發給後端
                     this.axios.post(url, allData).then((response) => {
                         console.log("response是: " + response);
-                        if (response.data.code == 20000 && (inx.value >= 1) && (inx.value <= 99)) {
+                        if (response.data.code == 20000) {
                             this.$message({
                                 message: '添加商品成功',
                                 type: 'success'
                             });
+
                         } else if (response.data.code == 40900) {
                             this.$message.error(response.data.message);
                         }
-                        inx.value = 0;
+
                     })
+
                 }
 
             },
 
             //跳轉至訂單詳情頁,(發請求給後端)查詢添加的項目
-            checkshoppingCar() {
+            checkShoppingCar() {
                 this.$router.push('/hamburger/menu/shopping-car');
             },
 
@@ -457,8 +416,8 @@
                     confirmButtonText: '發送',
                     cancelButtonText: '取消',
 
-                    //意見響應到後端
-                }).then(({value}) => {
+
+                }).then(() => {
                     this.$message({
                         message: '已提交，感謝您的意見',
                         type: 'success'
