@@ -1,96 +1,90 @@
 <style>
+
     * {
-        margin: auto;
-
-    }
-
-    #con {
-        position: relative;
+        margin: 0;
     }
 
     .layout-header {
-        position: relative;
-        text-align: center;
-        font-size: 20px;
-        top: 0;
-        bottom: 95%;
-        left: 0;
-        right: 0;
-        width: 100%;
+        font-size: 32px;
+        height: auto;
+        background-color: #32536a;
+        color: #ffffff;
+    }
 
+    .layout-aside {
+        background-color: #32536a;
+
+    }
+
+    .layout-main {
+        background-color: #32536A;
 
     }
 
     .layout-body {
 
-        background-color: #162D3D;
-        /*background-color: #32536A;*/
-        bottom: 0;
-        top: 20%;
-        height: 1780px;
-        width: 100%;
-        left: 0;
+        top: 60px;
         right: 0;
-        text-align: center;
-
-
+        bottom: 0;
+        left: 0;
     }
 
-    .layout-footer {
-
-        text-align: center;
-        background-color: white;
-
-
-        font-size: 12px;
-        line-height: 18px;
-
-        margin-top: 20px;
-
-
+    .s1 {
+        font-size: 16px;
     }
-
-
-
-
 </style>
 
+
 <template>
+    <div>
+        <el-container>
 
-    <el-container id="con">
+            <el-header class="layout-header">
+                <h3>後台訂單系統</h3>
+            </el-header>
+            <el-container class="layout-body">
+                <el-aside class="layout-aside">
 
-        <el-header class="layout-header">
+                    <!-- el-menu表示整個菜單 -->
+                    <!-- router屬性(不給值即表示true)：可將各菜單項的index作為URL進行跳轉-->
+                    <el-menu router :default-active="this.$router.currentRoute.path" class="el-menu-vertical-demo">
+                        <!-- el-submenu表示含子級的菜單，但本身並不是菜單項-->
+                        <el-submenu index="1">
+                            <!-- template用於配置包含子菜單的父級項-->
+                            <template slot="title">
+                                <i class="el-icon-goods"></i>
+                                <span class="s1">訂單查詢</span>
+                            </template>
+                            <!-- el-menu-item 表示菜單項-->
+                            <el-menu-item class="s1" index="/hamburger/order-management">訂單列表</el-menu-item>
+                        </el-submenu>
 
-            <h1>Ordering System</h1>
-        </el-header>
+                        <el-submenu index="2">
+                            <template slot="title">
+                                <i class="el-icon-document-copy"></i>
+                                <span class="s1">菜單管理</span>
+                            </template>
+                            <el-menu-item class="s1" index="/hamburger/add-menu">添加菜單</el-menu-item>
+                            <el-menu-item class="s1" index="/hamburger/menu-list">菜單編輯</el-menu-item>
+                        </el-submenu>
 
+                        <el-submenu index="2">
+                            <template slot="title">
+                                <i class="el-icon-user"></i>
+                                <span class="s1">員工管理</span>
+                            </template>
+                            <el-menu-item class="s1" index="/hamburger/admin">添加員工</el-menu-item>
+                            <el-menu-item class="s1" index="/hamburger/admin-list">員工編輯</el-menu-item>
+                        </el-submenu>
 
-        <el-main class="layout-body">
-
-
-
-
-            <router-view/>
-        </el-main>
-        <el-footer class="layout-footer">
-
-            <p>CONTACT Cliff ©版權所有</p>
-            <p>服務專線 0930-099-850 免費體驗</p>
-            <p>週一至週五 09:30-12:30 / 13:30-18:00</p>
-            <p>非服務時段請填<a href="https://element.eleme.cn/#/zh-CN/component/container">
-                表單留言
-            </a>
-            </p>
-
-        </el-footer>
-
-
-
-
-
-
-    </el-container>
-
+                    </el-menu>
+                </el-aside>
+                <el-main class="layout-main">
+                    <router-view/>
+                </el-main>
+            </el-container>
+        </el-container>
+    </div>
 </template>
 
 

@@ -10,36 +10,69 @@ const routes = [
     // 使用children來配置子級路由，children子級的配置方式與routes子級的配置方式相同
     // 通常，應該配置redirect屬性，表示重定向，因為一旦發現嵌套，原來的視圖（例如HomeView）是不完整的，不應該允許直接訪問
     // 以下配置重定向的效果：一旦訪問 / 路徑，就會自動跳轉到 /user/list 路徑
-    path: '/',
+    path: '/hamburger',
     name: 'home',
     component: HomeView,
-    redirect: '/hamburger/menu',
+    redirect: '/hamburger/menu-list',
     children:[
-
       {
-        path: '/hamburger/menu/shopping-car',
-        component: () => import('../views/ShoppingCar/ShoppingCarView.vue'),
+        path: '/hamburger/add-menu',
+        component: () => import('../views/addMenu/AddMenuView'),
         meta: {
-          title: 'shopping cart'
+          title: 'Add - Menu'
         }
       },
-
+      {
+        path: '/hamburger/menu-list',
+        component: () => import('../views/addMenu/MenuListView'),
+        meta: {
+          title: 'Menu - List'
+        }
+      },
+      {
+        path: '/hamburger/order-management',
+        component: () => import('../views/orderManagement/OrderManagementView.vue'),
+        meta: {
+          title: 'Order - Management'
+        }
+      },
+      {
+        path: '/hamburger/admin',
+        component: () => import('../views/admin/AddAdminView'),
+        meta: {
+          title: 'Add - Admin'
+        }
+      },
+      {
+        path: '/hamburger/admin-list',
+        component: () => import('../views/admin/AdminListView'),
+        meta: {
+          title: 'Admin - List'
+        }
+      },
     ]
   },
   {
     path: '/hamburger/menu',
-    component: () => import('../views/HamburgerMenu/HamburgerMenuView.vue'),
+    component: () => import('../views/hamburgerMenu/HamburgerMenuView.vue'),
     meta: {
-      title: 'Hamburger Menu'
+      title: 'Hamburger - Menu'
     }
   },
   {
-    path: '/hamburger/order-management',
-    component: () => import('../views/OrderManagement/OrderManagementView.vue'),
+    path: '/hamburger/menu/shopping-car',
+    component: () => import('../views/shoppingCar/ShoppingCarView.vue'),
     meta: {
-      title: 'Hamburger Menu'
+      title: 'Shopping - Cart'
     }
-  }
+  },
+  {
+    path: '/hamburger/login',
+    component: () => import('../views/login/LoginView'),
+    meta: {
+      title: 'Admin - Login'
+    }
+  },
 ]
 
 const router = new VueRouter({

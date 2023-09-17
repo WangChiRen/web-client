@@ -1,33 +1,95 @@
+<style scoped>
+
+    .header {
+        background-color: #32536A;
+        color: white;
+        width: 1536px;
+    }
+
+    .body {
+        position: absolute;
+        /*background-color: #162D3D;*/
+        background-color: #32536A;
+    }
+
+
+    /*更改表頭背景顏色*/
+    /deep/ .el-table thead tr > th {
+        background-color: #32536A;
+        color: white;
+        font-size: 10px;
+    }
+
+    /*更改表格每行背景颜色*/
+    /deep/ .el-table tbody tr > td {
+        background-color: #32536A;
+        font-size: 8px;
+    }
+
+    /*更改表格每行背景顏色*/
+    /deep/ .el-table tbody tr > td {
+        background-color: #32536A !important;
+        color: white;
+
+    }
+    .el-table{
+        height: 2560px;
+        width: 100%;
+        background-color: #32536A;
+        color: white;
+    }
+
+    .shoppingCar {
+
+        border-radius: 30px;
+        margin-top: 40px;
+
+    }
+    .hr {
+        color: white;
+        margin-top: 20px;
+    }
+
+</style>
+
+
 <template slot-scope="scope">
     <div id=app>
-        <el-table
-                id="tab"
-                ref="multipleTable"
-                :data="tableData"
-                tooltip-effect="dark"
-                style="width: 100% "
-                :summary-method="getSummaries"
-                show-summary
-                @selection-change="handleSelectionChange"
-                @row-click="getDetails">
 
-            <template slot-scope="scope">
+        <div class="header">
+            <h1>Ordering System</h1>
+            <hr class="hr">
+        </div>
+
+        <div class="body">
+            <el-table
+                    class="el-table"
+                    empty-text="暫無資料"
+                    ref="multipleTable"
+                    :data="tableData"
+                    tooltip-effect="dark"
+
+                    :summary-method="getSummaries"
+                    show-summary
+                    @selection-change="handleSelectionChange"
+                    @row-click="getDetails">
+
 
                 <el-table-column prop="id" label="編號" width="180" show-overflow-tooltip>
                     <template slot-scope="scope">{{serialNumber(scope.$index)}}</template>
-                    
+
                 </el-table-column>
 
-                <el-table-column prop="commodity" label="商品圖片" align="center" width="180">
+                <el-table-column prop="commodity" label="商品圖片" align="center" width="300">
                     <template slot-scope="scope">
-                        <img :src="scope.row.commodity">
+                        <img :src="getImageUrl(scope.row.commodity)" alt="餐點圖片">
                     </template>
                 </el-table-column>
 
 
-                <el-table-column prop="unitprice" align="center" label="單價" width="150"></el-table-column>
+                <el-table-column prop="unitprice" align="center" label="單價" width="400"></el-table-column>
 
-                <el-table-column prop="quantity" label="數量" align="center" width="350" show-overflow-tooltip>
+                <el-table-column prop="quantity" label="數量" align="center" width="200" show-overflow-tooltip>
                     <template slot-scope="scope">
 
                         <el-input-number size="small" v-model="scope.row.quantity"
@@ -36,10 +98,10 @@
                                          :max="99"></el-input-number>
                     </template>
                 </el-table-column>
-                <el-table-column prop="total" align="center" label="總價" width="120"></el-table-column>
+                <el-table-column prop="total" align="center" label="總價" width="350"></el-table-column>
 
 
-                <el-table-column fixed="right" label="操作" align="center" width="300">
+                <el-table-column  label="操作" align="center" width="106">
                     <template slot-scope="scope">
                         <el-button
                                 @click="openDeleteConfirm(scope.row.id)"
@@ -50,47 +112,51 @@
                         </el-button>
                     </template>
                 </el-table-column>
-            </template>
-        </el-table>
 
-        <div style="margin-top: 20px">
-            <el-button type="info" round icon="el-icon-money" @click="returnToMenu()">返回點餐頁面</el-button>
-            <el-button type="info" round icon="el-icon-user-solid" @click="returnToOrderManagement()">進入後台管理系統</el-button>
-            <el-button type="danger" round icon="el-icon-bank-card" @click="orderAndCheckout()">點餐</el-button>
+            </el-table>
+
+            <div style="margin-top: 20px;margin-bottom: 20px">
+                <el-button class="shoppingCar" type="info" round icon="el-icon-money" @click="returnToMenu()">返回點餐頁面</el-button>
+                <el-button class="shoppingCar" type="info" round icon="el-icon-user-solid" @click="returnToOrderManagement()">進入後台管理系統
+                </el-button>
+                <el-button class="shoppingCar" type="danger" round icon="el-icon-bank-card" @click="orderAndCheckout()">點餐</el-button>
+
+            </div>
 
         </div>
-
     </div>
-
 </template>
 
 <script>
 
+    import imageMixin from "@/mixins/imageMixin.js";
 
     export default {
+
+        //設置圖片顯示
+        //設置編號
+        mixins: [imageMixin],
 
         data() {
             return {
                 tableData: [],
                 multipleSelection: [],
                 serialCounter: 1,
+                isConfirmedToLeave: false,
             }
         },
+
+
         computed: {
             // 從本地存儲中獲取 ordernumber，如果沒有則默認為 0
             ordernumber() {
 
                 return parseInt(localStorage.getItem('ordernumber')) || 0;
-            }
+            },
+
         },
 
         methods: {
-
-            //設置編號
-            serialNumber(index) {
-                return index + this.serialCounter;
-            },
-
 
             //顯示當前訂單資訊
             getDetails(row) {
@@ -118,7 +184,6 @@
                 console.log("將根據id=" + id + "修改訂單...");
                 let url = "http://localhost:9083/hamburgers/" + id + "/update";
                 let allDate = {
-
                     quantity: quantity,
                     total: total,
                 }
@@ -143,7 +208,7 @@
                 // 遍歷每一列
                 columns.forEach((column, index) => {
                     // 對於某些特定的列，不需要進行匯總
-                    if (index === 0 || index === 1 ||  index === 5) {
+                    if (index === 0 || index === 1 || index === 5) {
                         sums[index] = '';
                         return;
 
@@ -175,7 +240,7 @@
             //發請求呈現數據
             loadShoppingCar: function () {
                 // 請求的路徑
-                let url = "http://localhost:9083/hamburgers";
+                let url = "http://localhost:9083/hamburgers/list-shopping-car";
                 // 用get請求查詢數據並呈現
                 this.axios.get(url).then((response) => {
                     //response代表服務器響應對象
@@ -185,7 +250,6 @@
                     if (json.code == 20000) {
                         //將數據添加到 tableData 中
                         this.tableData = json.data;
-
                     } else {
                         //如果失敗返回失敗訊息
                         this.$message.error(json.message);
@@ -253,7 +317,7 @@
                     });
             },
 
-            // 遞增 ordernumber 的值
+            // 遞增訂單號 ordernumber 的值
             setOrderNumber() {
                 // 遞增 ordernumber 的值
                 const newOrderNumber = this.ordernumber + 1;
@@ -266,7 +330,7 @@
                 let url = "http://localhost:9083/hamburgers/update-order";
 
                 // 將數據封裝為json對象
-                const requestData = { ordernumber: newOrderNumber };
+                const requestData = {ordernumber: newOrderNumber};
 
                 // 發送 POST 請求給後端
                 this.axios.post(url, requestData).then((response) => {
@@ -288,6 +352,7 @@
             //將訂單送出給後台系統
             backendSystem() {
                 let url = "http://localhost:9083/hamburgers/add-order";
+
                 this.axios.post(url).then((response) => {
                     console.log("response是: " + response);
                     if (response.data.code == 20000) {
@@ -326,17 +391,29 @@
             },
 
             //進入後台管理系統
-            returnToOrderManagement(){
+            returnToOrderManagement() {
                 this.$router.push('/hamburger/order-management')
             },
 
-            //回首頁
-            returnToMenu() {
-                this.$router.push('/hamburger/menu')
-            },
 
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+
+            deleteAllOrderData() {
+                let url = "http://localhost:9083/hamburgers/deleteShoppingCartData";
+                this.axios.post(url).then((response) => {
+                    if (response.data.code == 20000) {
+                        this.$message({
+                            message: '離開成功',
+                            type: 'success'
+                        });
+
+                    } else {
+                        this.$message.error(response.data.message);
+                    }
+                })
+
             },
 
 
@@ -344,6 +421,16 @@
 
         created() {
 
+            // 添加一个标志变量来跟踪是否刷新页面
+            let isRefreshing = false;
+
+           // 添加一个事件监听器来处理 beforeunload 事件
+            window.addEventListener('beforeunload', (event) => {
+                if (!isRefreshing) {
+                    event.returnValue = "你確定要離開嗎？";
+                    this.deleteAllOrderData();
+                }
+            });
         },
 
         mounted() {
