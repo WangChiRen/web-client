@@ -73,6 +73,13 @@ const routes = [
       title: 'Admin - Login'
     }
   },
+  {
+    path: '/hamburger/forget-password',
+    component: () => import('../views/login/ForgetPasswordView'),
+    meta: {
+      title: 'Forget - Password'
+    }
+  },
 ]
 
 const router = new VueRouter({

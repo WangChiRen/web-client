@@ -235,7 +235,9 @@ height: 600px;
             //從數據庫獲得數據並顯示
             loadOrderManagement: function () {
                 let url = "http://localhost:9083/hamburgers/list-order";
-                this.axios.get(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .get(url).then((response) => {
                     let json = response.data;
                     if (json.code == 20000) {
                         this.tableData = json.data;

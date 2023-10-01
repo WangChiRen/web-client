@@ -187,7 +187,9 @@
                     quantity: quantity,
                     total: total,
                 }
-                this.axios.post(url, allDate).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url, allDate).then((response) => {
                     if (response.data.code == 20000) {
                         this.$message({
                             message: '修改訂單成功',
@@ -242,7 +244,9 @@
                 // 請求的路徑
                 let url = "http://localhost:9083/hamburgers/list-shopping-car";
                 // 用get請求查詢數據並呈現
-                this.axios.get(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .get(url).then((response) => {
                     //response代表服務器響應對象
                     //response.data代表服務器響應的數據
                     let json = response.data;
@@ -277,7 +281,9 @@
             handleDelete(id) {
                 console.log("將根據id=" + id + "刪除訂單...");
                 let url = "http://localhost:9083/hamburgers/" + id + "/delete";
-                this.axios.post(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url).then((response) => {
                     //response代表服務器響應對象
                     //response.data代表服務器響應的數據
                     //response.data.code == 20000代表請求成功
@@ -333,7 +339,9 @@
                 const requestData = {ordernumber: newOrderNumber};
 
                 // 發送 POST 請求給後端
-                this.axios.post(url, requestData).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url, requestData).then((response) => {
                     console.log("response是: " + response);
                     if (response.data.code == 20000) {
                         this.backendSystem();
@@ -353,7 +361,9 @@
             backendSystem() {
                 let url = "http://localhost:9083/hamburgers/add-order";
 
-                this.axios.post(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url).then((response) => {
                     console.log("response是: " + response);
                     if (response.data.code == 20000) {
                         this.foodDelivery();
@@ -371,7 +381,9 @@
             //點餐(刪除全部的訂單數據)
             foodDelivery() {
                 let url = "http://localhost:9083/hamburgers/deleteByData";
-                this.axios.post(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url).then((response) => {
                     if (response.data.code == 20000) {
                         this.$message({
                             message: '送出訂單成功',
@@ -402,7 +414,9 @@
 
             deleteAllOrderData() {
                 let url = "http://localhost:9083/hamburgers/deleteShoppingCartData";
-                this.axios.post(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url).then((response) => {
                     if (response.data.code == 20000) {
                         this.$message({
                             message: '離開成功',

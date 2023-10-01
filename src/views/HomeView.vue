@@ -65,7 +65,7 @@
                                 <span class="s1">菜單管理</span>
                             </template>
                             <el-menu-item class="s1" index="/hamburger/add-menu">添加菜單</el-menu-item>
-                            <el-menu-item class="s1" index="/hamburger/menu-list">菜單編輯</el-menu-item>
+                            <el-menu-item class="s1" index="/hamburger/menu-list">菜單列表</el-menu-item>
                         </el-submenu>
 
                         <el-submenu index="2">
@@ -74,7 +74,7 @@
                                 <span class="s1">員工管理</span>
                             </template>
                             <el-menu-item class="s1" index="/hamburger/admin">添加員工</el-menu-item>
-                            <el-menu-item class="s1" index="/hamburger/admin-list">員工編輯</el-menu-item>
+                            <el-menu-item class="s1" index="/hamburger/admin-list">員工列表</el-menu-item>
                         </el-submenu>
 
                     </el-menu>
@@ -86,6 +86,19 @@
         </el-container>
     </div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+            };
+        },
+        methods: {
+
+        },
+
+    }
+</script>
 
 
 

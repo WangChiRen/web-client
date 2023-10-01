@@ -203,7 +203,9 @@
             //從數據庫獲得數據並顯示
             loadMenuListView: function () {
                 let url = "http://localhost:9083/hamburgers/list-edit-menu";
-                this.axios.get(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .get(url).then((response) => {
                     let json = response.data;
                     if (json.code == 20000) {
                         this.tableData = json.data;
@@ -244,7 +246,9 @@
             handleDelete(id) {
                 console.log("將根據id=" + id + "刪除訂單...");
                 let url = "http://localhost:9083/hamburgers/" + id + "/delete-menu";
-                this.axios.post(url).then((response) => {
+                this.axios
+                    .create({headers: {'Authorization': localStorage.getItem('jwt')}})
+                    .post(url).then((response) => {
                     if (response.data.code == 20000) {
                         this.$message({
                             message: '刪除訂單成功',
@@ -280,6 +284,34 @@
                 this.fileList = fileList;
             },
 
+            // 上傳圖片前的處理
+            beforeUpload(file) {
+                console.log("File selected:", file);
+                const isJPGorPNG = file.type === 'image/jpeg' || file.type === 'image/png';
+                if (!isJPGorPNG) {
+                    this.$message.error('只能上傳jpg/png文件');
+                    return false;
+                }
+
+                const formData = new FormData();
+                formData.append('picFile', file);
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(this.yourBackendUploadURL, formData).then((response) => {
+                    console.log(response);
+
+                    if (response.data.code == 20000) {
+                        this.$message({
+                            message: '添加圖片成功',
+                            type: 'success'
+                        });
+                    } else {
+                        this.$message.error(response.data.message);
+                    }
+                });
+                return true;
+            },
+
             submitForm(id) {
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
@@ -304,7 +336,9 @@
                     commodity: this.ruleForm.commodity,
 
                 }
-                this.axios.post(url, allDate).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url, allDate).then((response) => {
                     if (response.data.code == 20000) {
                         this.$message({
                             message: '修改表單成功',

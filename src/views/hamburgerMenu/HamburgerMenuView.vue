@@ -216,7 +216,9 @@
                 // 請求的路徑
                 let url = "http://localhost:9083/hamburgers/list-menu";
                 // 用get請求查詢數據並呈現
-                this.axios.get(url).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .get(url).then((response) => {
                     //response代表服務器響應對象
                     //response.data代表服務器響應的數據
                     let json = response.data;
@@ -253,7 +255,9 @@
                 console.log("commodity:", allData);
 
                 //將數據發給後端
-                this.axios.post(url, allData).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(url, allData).then((response) => {
                     console.log("response是: " + response);
                     if (response.data.code == 20000) {
                         this.$message({

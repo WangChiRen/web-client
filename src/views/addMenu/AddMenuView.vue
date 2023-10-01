@@ -159,14 +159,44 @@
                 });
             },
 
+            // 上傳圖片前的處理
+            beforeUpload(file) {
+                console.log("File selected:", file);
+                const isJPGorPNG = file.type === 'image/jpeg' || file.type === 'image/png';
+                if (!isJPGorPNG) {
+                    this.$message.error('只能上傳jpg/png文件');
+                    return false;
+                }
+
+                const formData = new FormData();
+                formData.append('picFile', file);
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(this.yourBackendUploadURL, formData).then((response) => {
+                    console.log(response);
+
+                    if (response.data.code == 20000) {
+                        this.$message({
+                            message: '添加圖片成功',
+                            type: 'success'
+                        });
+                      this.sendFormData();
+
+                    } else {
+                        this.$message.error(response.data.message);
+                    }
+                });
+                return true;
+            },
+
             // 發送表單數據
             sendFormData() {
                 let x = "http://localhost:9083/hamburgers/add-menu";
                 console.log(x);
                 console.log(this.ruleForm);
-
-
-                this.axios.post(x, this.ruleForm).then((response) => {
+                this.axios
+                    .create({headers:{'Authorization':localStorage.getItem('jwt')}})
+                    .post(x, this.ruleForm).then((response) => {
                     console.log(response);
 
                     if (response.data.code == 20000) {
@@ -183,17 +213,14 @@
             },
 
 
+
+
             //重置按鈕
             resetForm(formName) {
                 this.$refs[formName].resetFields();
                 this.ruleForm.commodity = ""; // 清空已上传的文件名
                 this.fileList = []; // 清空文件列表
             },
-
-
-
-
-
         },
 
         created() {
